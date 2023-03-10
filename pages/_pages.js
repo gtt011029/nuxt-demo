@@ -1,4 +1,6 @@
 // @vue/component
+import { downloadFileByUrl } from '@/utils/utils';
+
 export default {
     name: 'Pages',
     
@@ -9,13 +11,8 @@ export default {
     props: {},
     
     data() {
-        return {};
-    },
-    
-    head: {
-        meta: [
-            { name: '我是主页面', content: 'width=device-width, initial-scale=1' }
-        ],
+        return {
+        };
     },
     computed: {},
     
@@ -23,5 +20,10 @@ export default {
     
     created() {},
     
-    methods: {}
+    methods: {
+        download() {
+            console.log('test');
+            downloadFileByUrl('/calendar.svg', 'test.svg');
+        }
+    }
 };

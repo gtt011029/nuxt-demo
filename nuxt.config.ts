@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {resolve} from 'pathe'
 
 export default defineNuxtConfig({
     app: {
@@ -20,23 +19,27 @@ export default defineNuxtConfig({
                 {rel: 'stylesheet', href: 'https://awesome-lib.css'}
             ],
         },
-        "baseURL": "/",
-        "buildAssetsDir": "/_nuxt/",
-        "cdnURL": ""
     },
     nitro: {
-        preset: 'azure_functions',
-    },
-
-    alias: {
-        'images': resolve(__dirname, './assets/images'),
+        devProxy: {
+            '/api': {
+                target: 'http://127.0.0.1:5000',
+                changeOrigin: true,
+                prependPath: true
+            },
+        },
+        routeRules: {
+            '/api': {
+                proxy: 'http://localhost:5000'
+            }
+        }
     },
     vite: {
         server: {
             proxy: {
-                '/api': {
-                    target: 'http://127.0.0.1:5000',  //这里是接口地址
-                    changeOrigin: true
+                '/api/': {
+                    target: 'http://127.0.0.1:5000',
+                    changeOrigin: true,
                 }
             },
         }
